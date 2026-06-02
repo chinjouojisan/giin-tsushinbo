@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サポート | 加古川市議会議員マップ</title>
+<meta name="description" content="加古川市議会議員マップの活動をサポートしてください。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #dde4ee;
+    --surface: #ffffff;
+    --surface2: #edf1f7;
+    --border: #cdd5e0;
+    --accent: #2c2060;
+    --accent-light: rgba(44,32,96,0.08);
+    --magenta: #c0177a;
+    --magenta-light: rgba(192,23,122,0.10);
+    --text: #1a1a1a;
+    --text-muted: #7a736a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  /* ヘッダー */
+  .site-header {
+    background: var(--accent);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-header a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .site-header a:hover { color: #fff; }
+  .site-title {
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* メインコンテナ */
+  .container {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* ページタイトル */
+  .page-title {
+    text-align: center;
+    padding: 8px 0 4px;
+  }
+  .page-title h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.05rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .page-title .heart {
+    font-size: 1.1rem;
+    margin-right: 6px;
+    color: var(--magenta);
+  }
+
+  /* カード共通 */
+  .card {
+    background: var(--surface);
+    border: 1px solid #d6dde8;
+    border-radius: 16px;
+    padding: 22px 20px;
+    box-shadow: 0 4px 16px rgba(44,80,140,0.10), 0 1px 4px rgba(44,80,140,0.06);
+  }
+  .card.yellow {
+    background: #fffde7;
+    border-color: #f0e68c;
+  }
+  .card-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  /* 自己紹介セクション */
+  .intro-text {
+    font-size: 0.88rem;
+    line-height: 1.85;
+    color: var(--text);
+  }
+  .intro-text p + p {
+    margin-top: 12px;
+  }
+  .intro-text .highlight {
+    color: var(--magenta);
+    font-weight: 700;
+  }
+  .intro-text .percent {
+    display: inline-block;
+    background: var(--magenta-light);
+    color: var(--magenta);
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+  }
+
+  /* 独立性宣言 */
+  .declaration-card {
+    background: var(--accent);
+    border: none;
+  }
+  .declaration-card .card-title {
+    color: rgba(255,255,255,0.6);
+  }
+  .declaration-text {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.92);
+  }
+  .declaration-text p + p {
+    margin-top: 10px;
+  }
+  .declaration-final {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 12px;
+  }
+
+  /* 費用セクション */
+  .cost-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .cost-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--text);
+  }
+  .cost-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--magenta);
+    flex-shrink: 0;
+  }
+  .cost-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* 金額ボタンセクション */
+  .amount-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .amount-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .amount-btn {
+    background: #fffde7;
+    border: 1.5px solid #f0e68c;
+    border-radius: 12px;
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .amount-btn:hover {
+    border-color: var(--magenta);
+    background: var(--magenta-light);
+  }
+  .amount-btn.recommended {
+    border-color: #e65c00;
+    background: #fff3e0;
+    position: relative;
+  }
+  .recommended-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e65c00;
+    color: #fff;
+    font-size: 0.58rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+  .amount-btn .amount-yen {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .amount-btn.recommended .amount-yen {
+    color: #e65c00;
+  }
+  .amount-btn .amount-tag {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+  .amount-btn.recommended .amount-tag {
+    color: #e65c00;
+  }
+
+  /* 自由金額 */
+  .free-amount-wrap {
+    background: #fffde7;
+    border: 1.5px solid #f0e68c;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .free-amount-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .free-amount-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .free-amount-symbol {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .free-amount-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--surface);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .free-amount-input:focus { border-color: var(--accent); }
+  .free-amount-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+  .free-amount-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  .free-amount-btn:hover { background: #1a1240; }
+
+  /* ご注意 */
+  .notice-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .notice-list li {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text);
+    padding-left: 16px;
+    position: relative;
+  }
+  .notice-list li::before {
+    content: '・';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .faq-q::before {
+    content: 'Q';
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .faq-a {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    padding-left: 26px;
+  }
+
+  /* 戻るリンク */
+  .back-link {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .back-link a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .back-link a:hover { color: var(--magenta); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://kakogawa-giin-map.com">← サイトトップへ戻る</a>
+</header>
+
+<div class="container">
+
+  <!-- ページタイトル -->
+  <div class="page-title">
+    <h1><span class="heart">♥</span>加古川市議会議員マップをサポートする</h1>
+  </div>
+
+  <!-- 自己紹介・想い -->
+  <div class="card yellow">
+    <div class="card-title">このサイトについて</div>
+    <div class="intro-text">
+      <p>こんにちは。加古川市在住の一市民、石原英一です。</p>
+      <p>「加古川市議会議員マップ」は、私が個人で調査・開発・運営しています。</p>
+      <p>議会の情報は、実は公開されています。でも探しにくくて、わかりにくくて、多くの市民には届いていない。そのギャップをなんとかしたくて、このサイトを作りました。</p>
+      <p>ただ、正直に言います。このサイトに載っている情報は、議員一人ひとりの活動のほんの一部です。数字やスコアで見えているのは、せいぜい<span class="percent">0.1%</span>。</p>
+      <p>だからこそ、このサイトを「答え」にしてほしくないんです。気になった議員には、ぜひ直接会いに行ってください。話を聞いてください。そして、どんな議会が加古川の未来にとって良いのかを、一緒に考えてほしい。</p>
+      <p>このサイトは、市議会や政治と、いまより少しだけつながりを持つ<span class="highlight">きっかけになること</span>です。</p>
+    </div>
+  </div>
+
+  <!-- 独立性宣言 -->
+  <div class="card declaration-card">
+    <div class="card-title">独立性についての宣言</div>
+    <div class="declaration-text">
+      <p>このサイトは、特定の政党・団体・議員・企業からの資金提供を一切受けていません。</p>
+      <p>サポート金の有無や金額が、議員の評価・スコア・掲載内容に影響することはありません。</p>
+    </div>
+    <div class="declaration-final">絶対に譲りません。</div>
+  </div>
+
+  <!-- 費用 -->
+  <div class="card yellow">
+    <div class="card-title">運営にかかっている費用</div>
+    <ul class="cost-list">
+      <li>AI利用料（議員情報の分析・コメント生成）</li>
+      <li>情報公開請求のコピー代・取材費</li>
+      <li>ドメイン代（kakogawa-giin-map.com）</li>
+      <li>通信費</li>
+    </ul>
+    <p class="cost-note">個人運営のため規模は小さいですが、実費はかかっています。サポートしていただけると、とても励みになります。</p>
+  </div>
+
+  <!-- 金額選択 -->
+  <div class="card">
+    <div class="card-title">サポート金額を選んでください</div>
+    <div class="amount-grid">
+      <a href="https://buy.stripe.com/test_cNi4gs3UGcul0e62om6wE01" class="amount-btn">
+        <span class="amount-yen">¥500</span>
+        <span class="amount-tag">お試しサポート</span>
+      </a>
+      <a href="https://buy.stripe.com/test_bJe7sE4YK7a10e6aUS6wE02" class="amount-btn recommended">
+        <span class="recommended-badge">★ おすすめ</span>
+        <span class="amount-yen">¥1,000</span>
+        <span class="amount-tag">&nbsp;</span>
+      </a>
+      <a href="https://buy.stripe.com/test_7sYdR262Oamd0e6aUS6wE03" class="amount-btn">
+        <span class="amount-yen">¥2,000</span>
+        <span class="amount-tag">&nbsp;</span>
+      </a>
+      <a href="https://buy.stripe.com/test_aFa4gs62O8e5d0Sfb86wE04" class="amount-btn">
+        <span class="amount-yen">¥3,000</span>
+        <span class="amount-tag">&nbsp;</span>
+      </a>
+    </div>
+
+    <div class="free-amount-wrap">
+      <div class="free-amount-label">自由金額（100円〜）</div>
+      <div class="free-amount-input-row">
+        <span class="free-amount-symbol">¥</span>
+        <input type="number" class="free-amount-input" id="freeAmount" min="100" max="100000" placeholder="金額を入力">
+      </div>
+      <div class="free-amount-note">100円〜100,000円の範囲でご入力ください</div>
+      <a href="https://buy.stripe.com/test_eVq6oAcrc9i9e4WaUS6wE00" class="free-amount-btn" id="freeAmountBtn">この金額でサポートする</a>
+    </div>
+  </div>
+
+  <!-- 銀行振込 -->
+  <div class="card yellow">
+    <div class="card-title">銀行振込でサポートする</div>
+    <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">クレジットカードの登録に抵抗がある方は、口座への直接振込でもサポートを受け付けています。</p>
+    <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:9px 4px;color:var(--text-muted);width:38%;">銀行名</td>
+        <td style="padding:9px 4px;font-weight:700;">PayPay銀行（0033）</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:9px 4px;color:var(--text-muted);">支店名</td>
+        <td style="padding:9px 4px;font-weight:700;">うぐいす支店（008）</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:9px 4px;color:var(--text-muted);">口座種別</td>
+        <td style="padding:9px 4px;font-weight:700;">普通預金</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:9px 4px;color:var(--text-muted);">口座番号</td>
+        <td style="padding:9px 4px;font-weight:700;">6368712</td>
+      </tr>
+      <tr>
+        <td style="padding:9px 4px;color:var(--text-muted);">口座名義</td>
+        <td style="padding:9px 4px;font-weight:700;">イシハラエイイチ（石原英一）</td>
+      </tr>
+    </table>
+    <ul class="notice-list" style="margin-top:16px;">
+      <li>振込金額は任意です。無理のない範囲でお願いします。</li>
+      <li>振込手数料はご負担をお願いします。</li>
+      <li>領収書の発行はしていません。振込明細をご保管ください。</li>
+      <li>いただいたサポート金はサイトの運営費に充てます。特定の議員・政党への支援には使いません。</li>
+      <li>性質上、原則として返金はできません。ご納得の上でお願いします。</li>
+    </ul>
+  </div>
+
+  <!-- ご注意 -->
+  <div class="card">
+    <div class="card-title">ご注意</div>
+    <ul class="notice-list">
+      <li>寄付ではなく、活動への「サポート」として受け付けています。お返しや特典はありません。</li>
+      <li>いただいたサポート金は、サイトの運営費（AI・取材・ドメイン・通信費など）に使います。議員や政党への支援には使いません。</li>
+      <li>決済はStripeを使っています。カード番号はこちらには一切届きません。</li>
+      <li>領収書の発行はしていません。Stripeからの決済メールが代わりになります。</li>
+      <li>基本的に返金はできません。ご納得の上でお願いします。</li>
+    </ul>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <div class="card-title">よくある質問</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">サポートしたら何かもらえますか？</div>
+        <div class="faq-a">いいえ、お返しや特典はありません。このサイトに価値を感じて、続いてほしいという気持ちだけで受け付けています。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">名前や金額は公開されますか？</div>
+        <div class="faq-a">されません。いただいた情報は私だけが確認します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">領収書は発行されますか？</div>
+        <div class="faq-a">発行していません。Stripeからの決済メールが代わりになります。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">政治団体への寄付になりますか？</div>
+        <div class="faq-a">なりません。このサイトは政治団体ではなく、特定の議員・政党への支援を目的としていません。サポート金は全額サイトの運営費に充てます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="https://kakogawa-giin-map.com">← サポートせずにサイトに戻る</a>
+  </div>
+
+</div>
+
+<script>
+  // 自由金額ボタンの処理（Stripeリンクに金額パラメータを付与する場合）
+  const freeInput = document.getElementById('freeAmount');
+  const freeBtn = document.getElementById('freeAmountBtn');
+
+  freeInput.addEventListener('input', function() {
+    const val = parseInt(this.value);
+    if (val >= 100) {
+      freeBtn.textContent = '¥' + val.toLocaleString() + ' でサポートする';
+    } else {
+      freeBtn.textContent = 'この金額でサポートする';
+    }
+  });
+</script>
+
+</body>
+</html>
