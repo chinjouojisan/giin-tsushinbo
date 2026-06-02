@@ -722,9 +722,19 @@
 
   /* フッター */
   footer { text-align: center; padding: 18px 16px 26px; font-size: 0.65rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 6px; }
+
+  .page-container {
+    max-width: 520px;
+    margin: 0 auto;
+    background: var(--bg);
+    min-height: 100vh;
+    box-shadow: 0 0 40px rgba(0,0,0,0.12);
+  }
 </style>
 </head>
 <body>
+
+<div class="page-container">
 
 <!-- ヒーロー（サイトヘッダー統合） -->
 <div class="hero" id="heroSection">
@@ -1497,6 +1507,8 @@
 </div>
 
 <footer>&copy; 2026 Eiichi Ishihara. All Rights Reserved.</footer>
+
+</div><!-- /page-container -->
 
 <!-- モーダル -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
