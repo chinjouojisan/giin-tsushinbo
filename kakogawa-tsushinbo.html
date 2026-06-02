@@ -615,12 +615,14 @@
     line-height: 1.55;
     margin-bottom: 8px;
     letter-spacing: 0.04em;
+    text-align: center;
   }
   .hero-desc {
     font-size: 0.7rem;
     line-height: 1.85;
     opacity: 0.82;
     margin-bottom: 16px;
+    text-align: center;
   }
   .hero-btns {
     display: grid;
@@ -1013,7 +1015,7 @@
     <button class="entry-panel-close" onclick="closePanel('election')">▲ 閉じる</button>
   </div>
   <div style="font-size:0.68rem; color:var(--text-muted); margin:0 0 10px; text-align:center;">2022年加古川市議会議員選挙投票結果　投票率44.76%</div>
-  <div id="electionList" style="display:flex; flex-direction:column; gap:4px;"></div>
+  <div id="electionList" style="display:block;"></div>
   <button onclick="closePanel('election')" style="display:block; width:100%; margin-top:10px; padding:8px; border-radius:10px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.78rem; cursor:pointer;">▲ 閉じる</button>
 </div>
 
@@ -1043,7 +1045,7 @@
     <button id="rankTab-q" onclick="switchRankTab('q')" style="flex:1; padding:6px 4px; border-radius:8px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer;">質問</button>
     <button id="rankTab-c" onclick="switchRankTab('c')" style="flex:1; padding:6px 4px; border-radius:8px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer;">委員会発言</button>
   </div>
-  <div id="rankingList" style="display:flex; flex-direction:column; gap:4px;"></div>
+  <div id="rankingList" style="display:block;"></div>
   <button onclick="closePanel('ranking')" style="display:block; width:100%; margin-top:10px; padding:8px; border-radius:10px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.78rem; cursor:pointer;">▲ 閉じる</button>
 </div>
 
@@ -5583,7 +5585,7 @@ function heroGoElection() {
       const m = members[idx];
       const bg = rankBgColor(m.grade);
       const div = document.createElement('div');
-      div.style.cssText = `display:flex; align-items:center; gap:10px; padding:7px 10px; background:${bg}; border:1px solid #d6dde8; border-radius:10px; cursor:pointer; box-shadow:0 2px 6px rgba(44,80,140,0.07), 0 1px 2px rgba(44,80,140,0.04);`;
+      div.style.cssText = `display:flex; align-items:center; gap:10px; padding:7px 10px; background:${bg}; border:1px solid #d6dde8; border-radius:10px; cursor:pointer; box-shadow:0 2px 6px rgba(44,80,140,0.07), 0 1px 2px rgba(44,80,140,0.04); max-width:390px; margin-left:auto; margin-right:auto; margin-bottom:4px;`;
       div.innerHTML = `<span style="font-size:0.78rem; font-weight:700; color:#7a736a; min-width:22px; text-align:right;">${ed.elecRank}位</span><span style="font-size:0.85rem; font-weight:700; flex:1;">${m.name}</span><span style="font-size:0.82rem; font-weight:700; color:#c0177a;">${m.grade}</span><span style="font-size:0.72rem; color:#7a736a;">${ed.elecVotes}票</span>`;
       div.onclick = () => selectMember(idx, true);
       list.appendChild(div);
@@ -5648,7 +5650,7 @@ function switchRankTab(type) {
     const rank = m[rankKey] || '－';
     const grade = m[gradeKey] || '－';
     const bg = rankBgColor(grade);
-    return `<div onclick="selectMemberByCode('${m.code}')" style="display:flex; align-items:center; gap:10px; padding:7px 10px; background:${bg}; border:1px solid #d6dde8; border-radius:10px; cursor:pointer; box-shadow:0 2px 6px rgba(44,80,140,0.07), 0 1px 2px rgba(44,80,140,0.04);">
+    return `<div onclick="selectMemberByCode('${m.code}')" style="display:flex; align-items:center; gap:10px; padding:7px 10px; background:${bg}; border:1px solid #d6dde8; border-radius:10px; cursor:pointer; box-shadow:0 2px 6px rgba(44,80,140,0.07), 0 1px 2px rgba(44,80,140,0.04); max-width:390px; margin-left:auto; margin-right:auto; margin-bottom:4px;">
       <span style="font-size:0.78rem; font-weight:700; color:#7a736a; min-width:22px; text-align:right;">${rank}位</span>
       <span style="font-size:0.85rem; font-weight:700; flex:1;">${m.name}</span>
       <span style="font-size:0.75rem; color:#7a736a;">${m.faction}</span>
