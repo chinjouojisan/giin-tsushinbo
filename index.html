@@ -724,7 +724,7 @@
   footer { text-align: center; padding: 18px 16px 26px; font-size: 0.65rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 6px; }
 
   .page-container {
-    max-width: 520px;
+    max-width: 640px;
     margin: 0 auto;
     background: var(--bg);
     min-height: 100vh;
@@ -6372,6 +6372,12 @@ function buildInlinePanelContent(type) {
         if (!byYear[year]) byYear[year] = [];
         byYear[year].push({...q, qi});
       });
+      // questionCommentsにある年度でbyYearにないものを追加（質問なし・役職専念年度）
+      if (m.aiComment && m.aiComment.questionComments) {
+        Object.keys(m.aiComment.questionComments).forEach(yr => {
+          if (!byYear[yr]) byYear[yr] = [];
+        });
+      }
       content.innerHTML = '<div class="question-list" id="questionList"></div>';
       const list = document.getElementById('questionList');
       Object.entries(byYear).sort(([a],[b]) => b - a).forEach(([year, qs]) => {
@@ -6384,15 +6390,16 @@ function buildInlinePanelContent(type) {
             <div style="font-size:0.6rem; font-weight:700; color:#b45309; margin-bottom:5px;">🤖 ${year}年度の質問AIコメント</div>
             <div style="font-size:0.76rem; color:var(--text); line-height:1.8;">${qc}</div>
           </div>` : '';
+        const countLabel = qs.length === 0 ? '登壇なし' : `${qs.length}件`;
         yearBlock.innerHTML = `
           <button onclick="toggleQYear('${yid}',this)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 14px;background:var(--surface2);border:none;font-family:'Noto Sans JP',sans-serif;cursor:pointer;gap:8px;">
             <span style="font-size:0.8rem;font-weight:700;color:var(--accent);">${year}年</span>
-            <span style="font-size:0.68rem;color:var(--text-muted);">${qs.length}件</span>
+            <span style="font-size:0.68rem;color:var(--text-muted);">${countLabel}</span>
             <span style="font-size:0.62rem;color:var(--magenta);margin-left:auto;" id="${yid}_arrow">▶</span>
           </button>
           <div id="${yid}" style="display:none;">
             ${commentHtml}
-            ${qs.map(q => {
+            ${qs.length === 0 ? '<div style="padding:10px 14px; font-size:0.76rem; color:var(--text-muted);">この年度の質問記録はありません。</div>' : qs.map(q => {
               const hasChildren = q.children && q.children.length > 0;
               return `
               <div class="question-item" style="border-radius:0;border:none;border-top:1px solid var(--border);">
@@ -6436,6 +6443,12 @@ function openModal(type) {
         if (!byYear[year]) byYear[year] = [];
         byYear[year].push({...q, qi});
       });
+      // questionCommentsにある年度でbyYearにないものを追加（質問なし・役職専念年度）
+      if (m.aiComment && m.aiComment.questionComments) {
+        Object.keys(m.aiComment.questionComments).forEach(yr => {
+          if (!byYear[yr]) byYear[yr] = [];
+        });
+      }
 
       content.innerHTML = '<div class="question-list" id="questionList"></div>';
       const list = document.getElementById('questionList');
@@ -6445,14 +6458,22 @@ function openModal(type) {
         const yearBlock = document.createElement('div');
         yearBlock.style.cssText = 'border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:9px;';
         const yid = 'qyear_' + year;
+        const qc2 = m.aiComment && m.aiComment.questionComments && m.aiComment.questionComments[parseInt(year)];
+        const commentHtml2 = qc2 ? `
+          <div style="margin:10px 12px 6px; padding:10px 12px; background:#fffbea; border-radius:8px; border-left:3px solid #b45309;">
+            <div style="font-size:0.6rem; font-weight:700; color:#b45309; margin-bottom:5px;">🤖 ${year}年度の質問AIコメント</div>
+            <div style="font-size:0.76rem; color:var(--text); line-height:1.8;">${qc2}</div>
+          </div>` : '';
+        const countLabel2 = qs.length === 0 ? '登壇なし' : `${qs.length}件`;
         yearBlock.innerHTML = `
           <button onclick="toggleQYear('${yid}',this)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 14px;background:var(--surface2);border:none;font-family:'Noto Sans JP',sans-serif;cursor:pointer;gap:8px;">
             <span style="font-size:0.8rem;font-weight:700;color:var(--accent);">${year}年</span>
-            <span style="font-size:0.68rem;color:var(--text-muted);">${qs.length}件</span>
+            <span style="font-size:0.68rem;color:var(--text-muted);">${countLabel2}</span>
             <span style="font-size:0.62rem;color:var(--magenta);margin-left:auto;" id="${yid}_arrow">▶</span>
           </button>
           <div id="${yid}" style="display:none;">
-            ${qs.map(q => {
+            ${commentHtml2}
+            ${qs.length === 0 ? '<div style="padding:10px 14px; font-size:0.76rem; color:var(--text-muted);">この年度の質問記録はありません。</div>' : qs.map(q => {
               const hasChildren = q.children && q.children.length > 0;
               return `
               <div class="question-item" style="border-radius:0;border:none;border-top:1px solid var(--border);">
