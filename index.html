@@ -361,7 +361,7 @@
   .promise-table td:first-child { text-align: left; white-space: nowrap; }
   .promise-table td:last-child { vertical-align: middle; }
   .promise-table tr.matched td { background: rgba(192,23,122,0.04); }
-  .promise-table tr.question-asked td { background: rgba(184,134,11,0.08); }
+  .promise-table tr.question-asked td { background: #fffde7; }
   .q-asked-badge {
     display: inline-flex; align-items: center; gap: 2px;
     margin-left: 6px;
@@ -400,7 +400,7 @@
   .petition-year-toggle.open .py-arrow { transform: rotate(90deg); }
   .petition-year-body { display: none; padding: 8px 14px 10px; }
   .petition-year-body.open { display: block; }
-  .petition-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; }
+  .petition-item { background: #edf7f0; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; }
   .petition-item:last-child { margin-bottom: 0; }
   .petition-item-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 5px; }
   .petition-number { font-size: 0.62rem; color: var(--text-muted); }
@@ -548,7 +548,7 @@
   .question-list { display: flex; flex-direction: column; gap: 9px; }
   .question-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .question-parent { display: flex; align-items: flex-start; justify-content: space-between; gap: 7px; padding: 10px 12px; cursor: pointer; transition: background 0.15s; }
-  .question-parent.has-promise { background: rgba(184,134,11,0.06); }
+  .question-parent.has-promise { background: #fffde7; }
   .question-parent:hover { background: var(--magenta-light); }
   .question-parent-left { flex: 1; }
   .q-cat { display: inline-block; background: var(--magenta-light); color: var(--magenta); font-size: 0.6rem; font-weight: 700; padding: 1px 7px; border-radius: 4px; margin-bottom: 5px; }
@@ -563,7 +563,7 @@
   .q-child-promise { font-size: 0.62rem; color: #7a5c00; background: rgba(184,134,11,0.15); border: 1px solid rgba(184,134,11,0.4); border-radius: 3px; padding: 1px 6px; white-space: nowrap; font-weight: 700; flex-shrink: 0; }
   .question-children.open { display: block; }
   .question-child { padding: 8px 12px 8px 20px; border-bottom: 1px solid var(--border); font-size: 0.82rem; color: var(--text); line-height: 1.8; }
-  .question-child.has-promise { background: rgba(184,134,11,0.06); }
+  .question-child.has-promise { background: #fffde7; }
   .question-child:last-child { border-bottom: none; }
   .question-child::before { content: "・"; color: var(--magenta); margin-right: 2px; }
 
@@ -818,6 +818,7 @@
           <li><strong>棋士のまち加古川</strong>：ゆかりのプロ棋士が7名。2011年から若手棋士の棋戦「加古川青流戦」を主宰。</li>
         </ul>
 
+        <button onclick="toggleAccordion('kakogawaCity'); safeScrollToElement(document.getElementById('kakogawaCityToggle'), SCROLL_OFFSET, 'smooth', 10);" style="display:block; width:100%; margin-top:12px; padding:8px; border-radius:10px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.78rem; cursor:pointer;">▲ 閉じる</button>
       </div>
     </div>
   </div>
@@ -864,6 +865,7 @@
           <li><strong>無会派</strong>：会派に属さない議員。会派結成・議案提出には3名以上必要なため、議会内での活動に制約がある。</li>
         </ul>
 
+        <button onclick="toggleAccordion('kakogawaCouncil'); safeScrollToElement(document.getElementById('kakogawaCouncilToggle'), SCROLL_OFFSET, 'smooth', 10);" style="display:block; width:100%; margin-top:12px; padding:8px; border-radius:10px; border:1.5px solid var(--border); background:var(--surface); color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; font-size:0.78rem; cursor:pointer;">▲ 閉じる</button>
       </div>
     </div>
   </div>
@@ -6078,7 +6080,7 @@ function buildPromiseSection(m) {
             return m.promises.map(p => {
               const pids = titleToPcodes[p.title] || [];
               const wasAsked = pids.some(pid => askedPCodes.has(pid));
-              const rowClass = p.matched ? 'matched' : (wasAsked ? 'question-asked' : '');
+              const rowClass = [p.matched ? 'matched' : '', wasAsked ? 'question-asked' : ''].filter(Boolean).join(' ');
               const badge = wasAsked
                 ? `<span class="q-asked-badge" title="この公約に関連する一般質問・代表質問が行われています（公約の達成を意味するものではありません）">💬 質問あり</span>`
                 : '';
@@ -6296,7 +6298,7 @@ function buildMemberInfoPanel(m) {
   if (m.faction)    fields.push(['会派',       m.faction]);
   if (m.terms)      fields.push(['期数',       `${m.terms}期`]);
   if (m.termStart)  fields.push(['初当選',     `${m.termStart}年`]);
-  if (m.gender)     fields.push(['性別',       m.gender]);
+  if (m.gender)     fields.push(['性別',       m.gender === '男' ? '男性' : m.gender === '女' ? '女性' : m.gender]);
   if (m.age)        fields.push(['年齢',       `${m.age}歳`]);
   if (m.job)        fields.push(['職業（元）',  m.job]);
 
