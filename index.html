@@ -44,7 +44,7 @@
   .header-search-input {
     width: 100%; padding: 8px 32px 8px 34px; border-radius: 999px;
     border: none; background: rgba(255,255,255,0.15);
-    font-family: 'Noto Sans JP', sans-serif; font-size: 0.82rem; color: #fff;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 16px; color: #fff;
     outline: none; transition: background 0.15s;
   }
   .header-search-input::placeholder { color: rgba(255,255,255,0.55); }
@@ -69,7 +69,7 @@
   .search-input {
     flex: 1; padding: 7px 12px 7px 32px; border-radius: 999px;
     border: 1.5px solid var(--border); background: var(--surface);
-    font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif; font-size: 16px; color: var(--text);
     outline: none; transition: border-color 0.15s;
   }
   .search-input::placeholder { color: var(--text-muted); }
@@ -743,7 +743,7 @@
   <div class="hero-search-wrap">
     <div class="header-search-bar">
       <span class="header-search-icon">🔍</span>
-      <input class="header-search-input" id="memberSearchInput" type="text" placeholder="名前・公約・質問・会派で検索…" oninput="onMemberSearch(this)" autocomplete="off">
+      <input class="header-search-input" id="memberSearchInput" type="text" placeholder="名前・公約・質問・会派で検索…" oninput="onMemberSearch(this)" onkeydown="onMemberSearchKey(event)" autocomplete="off">
       <button class="header-search-clear" id="searchClearBtn" onclick="clearMemberSearch()">✕</button>
     </div>
   </div>
@@ -5453,6 +5453,15 @@ let currentIndex = 0;
 let chart = null;
 
 // ===== 全フィールド横断検索 =====
+function onMemberSearchKey(e) {
+  if (e.key === 'Enter') {
+    setTimeout(function() {
+      var panel = document.getElementById('searchResultsPanel');
+      if (panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 50);
+  }
+}
+
 function onMemberSearch(input) {
   const q = input.value.trim();
   document.getElementById('searchClearBtn').style.display = q ? 'block' : 'none';
@@ -7351,6 +7360,69 @@ function toggleFdDept(did) {
     count.textContent = count.textContent.replace(isOpen ? '▼' : '▶', isOpen ? '▶' : '▼');
   }
 }
+
+/* ===== スクロールトップボタン ===== */
+(function() {
+  var style = document.createElement('style');
+  style.textContent = `
+    #scroll-top-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 9999;
+    }
+    #scroll-top-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #scroll-top-btn:hover {
+      background: var(--magenta);
+      transform: scale(1.08);
+    }
+  `;
+  document.head.appendChild(style);
+
+  var btn = document.createElement('button');
+  btn.id = 'scroll-top-btn';
+  btn.setAttribute('aria-label', 'ページトップへ戻る');
+  btn.innerHTML = '&#8679;';
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  function blurActive() {
+    if (document.activeElement && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
+  }
+  btn.addEventListener('mousedown', blurActive);
+  btn.addEventListener('touchstart', blurActive, { passive: true });
+
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
 
 </script>
 </body>
