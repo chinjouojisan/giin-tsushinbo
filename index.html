@@ -18,12 +18,10 @@
   <meta property="og:title" content="加古川市議会 議員通信簿">
   <meta property="og:description" content="加古川市議会議員の活動を市民目線で評価するサイトです。公約・一般質問・委員会活動を見える化。">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://kakogawa-giin-map.com/ogp.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/chinjouojisan/giin_photo/5465ced6cc0f8dcb06c7a3621d7305403cef3bd2/ogp.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://kakogawa-giin-map.com">
-  <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kakogawa-giin-map.com/ogp.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -406,12 +404,24 @@
   .petition-year-toggle.open .py-arrow { transform: rotate(90deg); }
   .petition-year-body { display: none; padding: 8px 14px 10px; }
   .petition-year-body.open { display: block; }
-  .petition-item { background: #edf7f0; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; }
+  .petition-item { background: #edf7f0; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 7px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden; }
   .petition-item:last-child { margin-bottom: 0; }
+  .petition-item::after {
+    content: attr(data-attitude-wm);
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 5.5rem; font-weight: 900; line-height: 1;
+    opacity: 0.13; pointer-events: none; user-select: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    z-index: 0;
+  }
+  .petition-item[data-attitude="○"]::after { color: var(--green); }
+  .petition-item[data-attitude="×"]::after { color: var(--red); }
+  .petition-item[data-attitude="△"]::after { color: var(--amber); }
   .petition-item-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 5px; }
   .petition-number { font-size: 0.62rem; color: var(--text-muted); }
-  .petition-attitude { font-size: 1rem; position: absolute; top: 8px; right: 10px; }
-  .petition-name { font-size: 0.8rem; line-height: 1.5; margin-bottom: 5px; padding-right: 28px; }
+  .petition-attitude { display: none; }
+  .petition-item-header, .petition-name, .petition-meta { position: relative; z-index: 1; }
+  .petition-name { font-size: 0.8rem; line-height: 1.5; margin-bottom: 5px; padding-right: 0; }
   .petition-meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; }
   .petition-meta-label { font-size: 0.6rem; color: var(--text-muted); white-space: nowrap; }
   .petition-meta-value { font-size: 0.6rem; color: var(--text); }
@@ -6169,6 +6179,8 @@ function buildPetitions() {
         const attitudeDisplay = p.attitude === '◻︎' ? '' : p.attitude;
         const div = document.createElement('div');
         div.className = 'petition-item';
+        div.dataset.attitude = p.attitude;
+        div.dataset.attitudeWm = p.attitude === '◻︎' ? '' : p.attitude;
         div.innerHTML = `
           <div class="petition-item-header">
             <span class="petition-number">審査日 ${p.date}</span>
