@@ -387,6 +387,14 @@
   .status-未着手 { background: rgba(192,23,122,0.1); color: var(--magenta); }
   .status-評価対象外 { background: #f0ede8; color: var(--text-muted); }
 
+
+  /* 質問時間枠セクション */
+  .time-section { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .time-section-title { padding: 11px 16px 9px; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.08em; font-weight: 700; border-bottom: 1px solid var(--border); background: rgba(44,32,96,0.04); }
+  .time-summary-bar { display: grid; grid-template-columns: 1fr 1fr; }
+  .time-summary-cell { padding: 9px 12px; font-size: 0.7rem; color: var(--text-muted); text-align: center; }
+  .time-summary-cell:first-child { border-right: 1px solid var(--border); }
+  .time-summary-val { font-size: 1rem; font-weight: 700; color: var(--magenta); display: block; margin-bottom: 2px; }
   /* 陳情・請願 */
   .petition-wrapper { border-bottom: 1px solid var(--border); }
   .petition-section-title { padding: 11px 16px 9px; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.08em; font-weight: 700; border-bottom: 1px solid var(--border); background: rgba(44,32,96,0.04); text-align: center; }
@@ -1355,6 +1363,12 @@
     <!-- 公約 -->
     <div id="secPromise"><div id="promiseSection" class="promise-section"></div></div>
 
+
+    <!-- 質問時間枠 -->
+    <div class="time-section" id="secTime">
+      <div id="timeSection"></div>
+    </div>
+
     <!-- 陳情・請願 -->
     <div class="petition-wrapper" id="secPetition">
       <div class="petition-section-title">
@@ -1859,6 +1873,7 @@ const members = [
     grade:'B-', totalScore:253.75, totalRank:9,
     qScore:178.5, qGrade:'C+', qRank:6,
     cScore:75.25, cGrade:'C', cRank:16,
+    avgTime:60.0, useRate:100.0,
     aiComment:{
      activity:'46件の一般質問は31議員中7位の活動量。テーマを見ると、介護・国保・生活保護・差し押さえなど「お金と暮らしの現場」に繰り返し足を踏み入れている。マイナンバー・スマートシティ・万博など、国や市の施策に「待った」をかける質問も目立ち、行政の進める方向に対して市民側から問い直す姿勢が一貫している。',
      promise:'掲げた公約は「国保料引き下げ」「給食無償化」「消費税5%」など生活コストの負担軽減が中心で9件。ただし一般質問との連動率は3%にとどまる。これは公約の多くが国政マターであり、市議会の質問では直接動かしにくいという事情もある。一方、陳情の賛否を見ると、給食無償化・少人数学級・体育館空調など市民生活に直結する請願にはほぼ全て賛成票を投じている。',
@@ -2043,6 +2058,7 @@ const members = [
     grade:'C', totalScore:209.75, totalRank:17,
     qScore:111.25, qGrade:'D+', qRank:22,
     cScore:98.5, cGrade:'B', cRank:8,
+    avgTime:59.75, useRate:99.58,
     aiComment:{
      activity:'36件の一般質問は全議員中でも多い部類で、委員会スコアはB評価と高い。質問テーマを見ると、かこバス・播磨臨海地域道路・PFAS検査・補聴器補助・生活保護・一人暮らし高齢者の孤独死など、生活インフラと社会的弱者への関心が一貫している。同じテーマに繰り返し戻ってくる粘り強さも、データから読み取れる。',
      promise:'公約10件には国保・給食・消費税・神戸製鋼の煤塵対策など、地域の生活環境に直結するテーマが並ぶ。一般質問との連動率は7%と低いが、陳情への賛否はほぼ全件賛成か棄権で、反対はごくわずか。市民からの請願に対して幅広く賛同する姿勢が続いている。',
@@ -2198,6 +2214,7 @@ const members = [
     promiseSummary:{total:7,notTouched:6,relatedQ:8,totalQ:36,matchRate:22.2222},
     grade:'D', totalScore:145.75, totalRank:27,
     qScore:117.5, qGrade:'D+', qRank:20, cScore:28.25, cGrade:'E', cRank:30,
+    avgTime:52.75, useRate:87.92,
     aiComment:{
      activity:'一般質問12件・総合25位（157.75点）でD評価。質問テーマは「加古川駅周辺の再整備」「市街化調整区域の地区計画」「公共施設跡地活用」「脱炭素化と木材利用」と、まちの構造や将来設計に関するものが中心で、日常的な生活課題より都市のグランドデザインに関心が向いている議員だという印象が強い。JR西日本不動産開発の社員という職歴が、この視点と重なって見える。',
      promise:'公約には「東加古川駅の鉄道高架の早期実現」「かこバス等の公共交通拡充」など地域インフラへの具体的なコミットが並ぶ。一般質問との連動率は22%と31議員の中では中程度で、言ったことを議会で拾おうとする姿勢は見える。ただし、「かこバス拡充」を公約に掲げながら、高齢者向けバス・タクシー優待を求める市民の陳情には賛成ではない票を投じている。',
@@ -2301,6 +2318,7 @@ const members = [
      grade:'B', totalScore:261.0667, totalRank:8,
      qScore:174.4, qGrade:'C+', qRank:8,
      cScore:86.6667, cGrade:'C', cRank:12,
+    avgTime:58.0, useRate:96.67,
     aiComment:{
      activity:'一般質問21件・総合7位（261点）はB評価と1期生では上位。質問テーマを見ると、不登校・給食・保育・PTAの負担軽減・子どもの交通安全など、「子育て中の親が日常で感じるしんどさ」に繰り返し焦点を当てている。主婦経験からくるリアルな生活感覚が質問に反映されている。',
      promise:'掲げた公約は「こどもの笑顔　住みたい街」の1件のみ。抽象度が高い分、何を具体的に実現しようとしているのかは質問実績で判断するほかない。ところが陳情の賛否を見ると、給食無償化・不登校支援・体育館空調など子育て関連の請願に賛成ではないケースが続いている。',
@@ -2419,6 +2437,7 @@ const members = [
       {area:'まちづくり',title:'リフレッシュできる住環境の想像と整備',detail:'',status:'未着手',matched:true},
       {area:'まちづくり',title:'子育てに適した空間の創造',detail:'',status:'未着手',matched:true}],
    promiseSummary:{total:3,notTouched:0,relatedQ:6,totalQ:48,matchRate:12.5},grade:'D+',totalScore:169.6,totalRank:21,qScore:105.6,qGrade:'D+',qRank:23,cScore:64,cGrade:'C',cRank:22,
+    avgTime:19.5, useRate:32.5,
    aiComment:{
      activity:'一般質問13件・総合21位（169.6点）でD+評価。2期目としては活動量がやや少なめ。質問テーマは市街化調整区域・企業誘致・駅周辺再整備・小学校統廃合・公共施設管理など、まちの将来設計に関わる行政課題が中心で、代表質問も多い。',
      promise:'公約は「都心へ流れた学生を呼び戻せる企業誘致」「子育てに適した空間の創造」など3件。質問連動率は10%（代表質問含む合計）。陳情への賛否は反対が多く、給食無償化・体育館空調・不登校支援などの市民からの請願に賛成ではない票が続いている。「子育て空間の創造」を公約に掲げながらも、子育て関連の陳情への対応はその方向とは異なる面がある。',
@@ -2542,6 +2561,7 @@ const members = [
       {area:'防災',title:'大規模災害を想定した地域の連携による危機管理能力の強化',detail:'',status:'未着手',matched:true},
       {area:'インフラ',title:'インフラ整備',detail:'ソフト面の充実による自然災害に強い地域づくり',status:'未着手',matched:true}],
    promiseSummary:{total:12,notTouched:10,relatedQ:4,totalQ:26,matchRate:15.3846},grade:'E-',totalScore:61.6667,totalRank:31,qScore:6,qGrade:'E-',qRank:31,cScore:55.6667,cGrade:'D',cRank:24,
+    avgTime:30.75, useRate:51.25,
    aiComment:{
      activity:'一般質問7件・総合31位（61.67点）と全議員中最下位のE-評価。2期目でこの活動量は、データとして事実を伝えるしかない。質問テーマは市道管理・避難所・火葬場・悪臭対策など地域の生活環境に関するものが中心で、テーマ自体は身近だが件数は少ない。',
      promise:'公約は「透明性のある議会運営」「行政組織の効率化」「子育て支援」「防災」など12件と全議員中でも多い部類。しかし質問連動率は15%にとどまり、多くの公約テーマが議会質問には現れていない。陳情への賛否は反対が大半を占める。',
@@ -2632,6 +2652,7 @@ const members = [
       {area:'その他',title:'市民目線で現状を見直し「改革」を進めます',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'「誰ひとり孤立させないまち」を目指した取り組み',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:7,notTouched:6,relatedQ:2,totalQ:50,matchRate:4.0},grade:'C',totalScore:201.1667,totalRank:19,qScore:127.5,qGrade:'C-',qRank:17,cScore:73.6667,cGrade:'C',cRank:17,
+    avgTime:57.5, useRate:95.83,
    aiComment:{
      activity:'一般質問14件・総合19位（201.17点）でC評価。「加古川人権アドバイザー」という職歴を持ち、質問テーマには不登校・ヤングケアラー・性の多様性・障がい者の地域移行・外国人市民支援・男女共同参画など、社会的に見えにくい立場の人々への関心が一貫して表れている。福祉と人権の現場経験が、テーマ選びに反映されている。',
      promise:'「やさしさ・ぬくもりのあるまちづくり」「誰ひとり孤立させない」という公約を掲げ、質問連動率は4%。公約の文言が抽象的なため数値としては低いが、質問テーマの方向性は公約の趣旨と重なっている。一方、陳情への賛否を見ると、不登校支援・給食無償化・補聴器助成など福祉・教育に関わる市民の請願に賛成ではないケースが続いている。',
@@ -2732,6 +2753,7 @@ const members = [
       {area:'子育て',title:'子育て支援を推進',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'安心・安全対策のまちづくりを推進',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:3,notTouched:2,relatedQ:4,totalQ:25,matchRate:16.0},grade:'E',totalScore:95.0417,totalRank:29,qScore:63.375,qGrade:'D-',qRank:28,cScore:31.6667,cGrade:'E',cRank:29,
+    avgTime:24.0, useRate:40.0,
    aiComment:{
      activity:'一般質問6件・総合29位（95.04点）でE評価。2期目で下位グループに位置する。質問テーマはゼロカーボン・駅周辺整備・情報発信・救急体制など、比較的広い範囲に分散している。',
      promise:'公約は「地域の活性化」「子育て支援」「安心・安全のまちづくり」の3件。一般質問との連動率は16%。公約テーマが質問に現れる場面は少ないが、ゼロではない。陳情への賛否は反対が大多数を占める。',
@@ -2818,6 +2840,7 @@ const members = [
       {area:'産業・経済',title:'漁業環境の整備を図る',detail:'',status:'未着手',matched:false},
       {area:'教育',title:'まちじゅうでスポーツができる環境づくりをめざす',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:7,notTouched:4,relatedQ:12,totalQ:41,matchRate:29.2683},grade:'C+',totalScore:229.5,totalRank:14,qScore:151.25,qGrade:'C',qRank:13,cScore:78.25,cGrade:'C',cRank:14,
+    avgTime:52.75, useRate:87.92,
    aiComment:{
      activity:'一般質問15件・総合14位（229.5点）でC+評価。質問テーマは、トイレのサニタリーボックス設置・3歳児検診・5歳児健診・HPVワクチン・学校セキュリティ・感震ブレーカーなど、生活の細かな場面を丁寧に拾い上げるスタイルが特徴的。大きなテーマより、身近な課題をひとつひとつ形にしようとする姿勢がデータから読み取れる。',
      promise:'公約7件のうち「漁業環境の整備」という、他の議員にはあまり見られない具体的なテーマを掲げている。質問連動率は29%と31議員の中では高い部類で、公約と質問が比較的連動している。陳情への賛否は反対が多い傾向だが、子育て・教育関連の請願への対応は公約の方向性とは必ずしも重ならない場面がある。',
@@ -2920,6 +2943,7 @@ const members = [
       {area:'まちづくり',title:'若い世代が住みたいと思えるまちづくり',detail:'',status:'未着手',matched:true},
       {area:'その他',title:'市民と市政のパイプ役となり',detail:'市民の声を市政に活かす',status:'未着手',matched:false}],
    promiseSummary:{total:5,notTouched:3,relatedQ:18,totalQ:27,matchRate:66.6667},grade:'D+',totalScore:169.25,totalRank:22,qScore:103.25,qGrade:'D+',qRank:24,cScore:66,cGrade:'C',cRank:21,
+    avgTime:26.5, useRate:44.17,
    aiComment:{
      activity:'一般質問9件・総合22位（169.25点）でD+評価。看護師という専門職の経歴を持ち、視覚障がい者支援・難聴・ひきこもり・APD（聴覚情報処理障がい）など、福祉と医療の境界領域を丁寧に拾う質問が目立つ。質問件数は少ないが、テーマの選び方に専門性が反映されている。',
      promise:'「誰一人置き去りにしない」「子育て支援」「いじめ・不登校対策」という公約を掲げ、質問連動率は67%と31議員の中でも高水準。公約テーマを丁寧に質問に落とし込んでいる。一方、陳情への賛否を見ると、不登校支援・給食無償化・体育館空調など子どもに関わる市民の請願に賛成ではないケースが続いている。',
@@ -3010,6 +3034,7 @@ const members = [
       {area:'まちづくり',title:'若い世代が住みたいと思えるまちづくり',detail:'',status:'未着手',matched:false},
       {area:'その他',title:'市民と市政のパイプ役となり',detail:'市民の声を市政に活かす',status:'未着手',matched:false}],
    promiseSummary:{total:5,notTouched:3,relatedQ:14,totalQ:47,matchRate:29.7872},grade:'C+',totalScore:225,totalRank:16,qScore:149.25,qGrade:'C',qRank:15,cScore:75.75,cGrade:'C',cRank:15,
+    avgTime:44.5, useRate:74.17,
    aiComment:{
      activity:'一般質問16件・総合16位（225点）でC+評価。3期目のベテランとして安定した活動を続けている。質問テーマは子宮頸がんワクチン・帯状疱疹ワクチン・周産期グリーフケア・リトルベビー支援・プレコンセプションケアなど、女性の健康と命に関わるテーマを丁寧に掘り下げるスタイルが際立っている。',
      promise:'「子育て支援」「高齢者・認知症」「いじめ・不登校対策」を公約に掲げるが、質問連動率は30%と中程度。陳情への賛否は反対が多く、体育館空調・不登校支援など子どもに関わる市民請願に賛成ではないケースが続いている。',
@@ -3117,6 +3142,7 @@ const members = [
       {area:'まちづくり',title:'住民主体のまちづくり',detail:'地域のクリエイターやNPOの活動を支援',status:'未着手',matched:false},
       {area:'まちづくり',title:'住民主体のまちづくり',detail:'使用しなくなった公共施設を民間で有効活用',status:'未着手',matched:false}],
    promiseSummary:{total:8,notTouched:5,relatedQ:26,totalQ:39,matchRate:66.6667},grade:'C+',totalScore:234.25,totalRank:13,qScore:181.75,qGrade:'B-',qRank:5,cScore:52.5,cGrade:'D',cRank:25,
+    avgTime:54.0, useRate:90.0,
    aiComment:{
      activity:'一般質問12件・総合13位（234.25点）でC+評価。「お好み焼きあーるだ」の主任という生活者としての経歴を持ち、質問テーマはブラック校則の見直し・ファミサポの充実・給食の在り方・部活動の地域移行・水泳授業の民間委託など、学校現場の実態に根ざしたものが中心だ。',
      promise:'「育休・産休の整備」「ファミサポ充実」「家族介護者への経済的援助」など生活に密着した具体的な公約を持つ。質問連動率は67%と高水準で、公約テーマを議会質問に積極的に反映させている。陳情への賛否は反対が多く、公約テーマに近い市民請願への対応は、期待した市民には疑問が残る場面がある。',
@@ -3212,6 +3238,7 @@ const members = [
       {area:'産業・経済',title:'若い世代に選ばれるまちづくり',detail:'新たな企業誘致や安定した雇用機会の創出',status:'未着手',matched:false},
       {area:'教育',title:'子供から高齢者までが心身共に健康な生活を行える魅力あるまちづくり',detail:'教育・文化・スポーツ活動を通じて',status:'未着手',matched:false}],
    promiseSummary:{total:4,notTouched:2,relatedQ:13,totalQ:32,matchRate:40.625},grade:'C-',totalScore:183.025,totalRank:20,qScore:134.025,qGrade:'C-',qRank:16,cScore:49,cGrade:'D',cRank:27,
+    avgTime:42.25, useRate:70.42,
    aiComment:{
      activity:'一般質問12件・総合20位（183.03点）でC-評価。質問テーマは防災時のトイレ問題・信号機のない横断歩道・踏切の安全対策・バス送迎置き去り防止・熱中症対策・津波避難・JR加古川線の新駅設置など、生活の安全に直結するテーマが一貫している。',
      promise:'公約4件と少ないが、質問連動率は40%と全議員中でも高水準。「安全対策・交通事故対策」という公約と質問内容が比較的一致している。陳情への賛否は反対が多い。',
@@ -3309,6 +3336,7 @@ const members = [
    ],
    promises:[{area:'医療',title:'在宅を支える往診医・看護師の拡充を',detail:'在宅での看取り、命に関わる選択に必要な情報共有を',status:'未着手',matched:true}],
    promiseSummary:{total:1,notTouched:0,relatedQ:11,totalQ:40,matchRate:27.5},grade:'B',totalScore:261.2,totalRank:7,qScore:170.2,qGrade:'C+',qRank:9,cScore:91,cGrade:'B',cRank:10,
+    avgTime:58.25, useRate:97.08,
    aiComment:{
      activity:'一般質問17件・総合6位（261.2点）でB評価。質問テーマはコロナワクチンの後遺症・HPVワクチンの副反応・在宅医療・介護現場のカスタマーハラスメント・発達障害と向精神薬など、医療情報の透明性と患者・現場従事者の権利に関わるテーマが一貫している。',
      promise:'公約は「在宅を支える往診医・看護師の拡充」の1件のみ。テーマを一点に絞った明快な打ち出しで、質問連動率は28%（代表質問含む合計では27.5%）。陳情への賛否は反対が多い。',
@@ -3421,6 +3449,7 @@ const members = [
       {area:'産業・経済',title:'希望を持て働けるまち',detail:'',status:'未着手',matched:false},
       {area:'子育て',title:'子どもを大切にするまち',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:5,notTouched:4,relatedQ:1,totalQ:55,matchRate:1.8182},grade:'B-',totalScore:241.4167,totalRank:11,qScore:150.75,qGrade:'C',qRank:14,cScore:90.6667,cGrade:'B',cRank:11,
+    avgTime:53.0, useRate:88.33,
    aiComment:{
      activity:'一般質問31件・総合10位（244.42点）でB-評価。質問テーマは買物弱者対策・絵本贈呈事業・高齢者のごみ出し支援・不登校支援・フリースクール補助・香害・小学校へのエレベーターと温水シャワー設置・産後ケアの改善など、生活の細かな場面を広く拾い上げている。',
      promise:'公約5件に対し質問連動率は0%と低い。公約の文言と質問タイトルが直接紐づきにくい構造になっているが、陳情への賛否は○24と会派内でも市民の声に応じる場面が比較的多い。',
@@ -3555,6 +3584,7 @@ const members = [
       {area:'その他',title:'市民と市政をつなぐ架け橋に',detail:'次世代に一番身近な存在として活動',status:'未着手',matched:true},
       {area:'その他',title:'市政をわかりやすく発信',detail:'地域密着',status:'未着手',matched:false}],
    promiseSummary:{total:3,notTouched:1,relatedQ:5,totalQ:30,matchRate:16.6667},grade:'D',totalScore:147.25,totalRank:26,qScore:126,qGrade:'C-',qRank:18,cScore:21.25,cGrade:'E',cRank:31,
+    avgTime:45.0, useRate:75.0,
    aiComment:{
      activity:'一般質問12件・総合27位（115点）でE+評価。全議員中最年少の1期目。質問テーマは脱炭素・シティプロモーション・若者施策・牛肉のまちづくり・ウェルビーイングを軸とした都市経営・官民連携など、まちの未来像と若い世代の活力に関わるテーマが中心だ。',
      promise:'「成長志向で30年後も見据えたまちづくり」「市民と市政をつなぐ架け橋に」「市政をわかりやすく発信」の3件を公約に掲げる。抽象度が高い文言ながら質問連動率は17%で、官民連携・都市経営・若者施策などの質問がその方向性と重なっている。陳情への賛否は会派内でも柔軟で、維新所属議員の中では○と×が比較的均等に分かれている。',
@@ -3656,6 +3686,7 @@ const members = [
       {area:'産業・経済',title:'商店街の活性化',detail:'シニア世代を対象としたプレミアム商品券の実施',status:'未着手',matched:false},
       {area:'教育',title:'学校給食の無償化',detail:'',status:'未着手',matched:true}],
    promiseSummary:{total:8,notTouched:5,relatedQ:9,totalQ:110,matchRate:8.1818},grade:'A',totalScore:329.75,totalRank:3,qScore:217.25,qGrade:'B',qRank:4,cScore:112.5,cGrade:'B',cRank:6,
+    avgTime:60.0, useRate:100.0,
    aiComment:{
      activity:'一般質問37件・総合3位（329.75点）でA評価。3期のベテランとして質問・委員会ともに高い水準を維持している。質問テーマは不登校支援・フリースクール補助・給食無償化・公共交通・有機農業・職員の働き方改革など、子どもと地域の暮らしに幅広く向き合い続けている。',
      promise:'「給食無償化」「子ども医療費大学生まで無料化」「塾代補助」「高齢者へのタクシーチケット配布」など、具体的な数値や対象を示した公約が並ぶ。質問連動率は5.5%（代表質問含む合計）と低く、公約テーマが質問に現れにくい状況がある。「給食無償化」を公約に掲げながら、給食無償化を求める市民の陳情に賛成ではない票を投じた点は、公約を信じた市民には疑問が残るかもしれない。',
@@ -3807,6 +3838,7 @@ const members = [
       {area:'教育',title:'授業料無償化',detail:'',status:'未着手',matched:false},
       {area:'その他',title:'議員報酬カット',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:8,notTouched:6,relatedQ:4,totalQ:51,matchRate:7.8431},grade:'C',totalScore:202.75,totalRank:18,qScore:98.5,qGrade:'D',qRank:25,cScore:104.25,cGrade:'B',cRank:7,
+    avgTime:42.25, useRate:70.42,
    aiComment:{
      activity:'一般質問16件・総合18位（202.75点）でC評価。質問スコアは低いが、委員会スコアはB評価と高く、質問より委員会での議論を主戦場にしているタイプと見える。質問テーマは、駅前の駐輪・点字ブロック問題、いじめ対策、救急車の適正利用、外国人の生活保護など、現場感覚のある生活密着型が多い。「給食のオーガニック化」「議員報酬カット」という公約を掲げる個性派で、31議員の中では最も独自色が強い部類に入る。',
      promise:'「議員報酬カット」「授業料無償化」「給食オーガニック化」と、公約のインパクトは群を抜く。しかし質問連動率は8%（代表質問含む合計）で、これらのテーマが議会質問に現れる場面は少ない。陳情の賛否は○×ほぼ半々で、維新という看板のわりに賛否が読みにくい。',
@@ -3926,6 +3958,7 @@ const members = [
       {area:'まちづくり',title:'賑わいと活力のあるまち',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'行政と住民による協働のまち',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:5,notTouched:2,relatedQ:23,totalQ:23,matchRate:100.0},grade:'C+',totalScore:227.75,totalRank:15,qScore:157.75,qGrade:'C',qRank:11,cScore:70,cGrade:'C',cRank:20,
+    avgTime:41.5, useRate:69.17,
    aiComment:{
      activity:'一般質問7件・総合15位（227.75点）でC+評価。4期目のベテランながら質問数は少ない。その少ない質問が、不登校支援・発達障がい者支援・学校給食の質・ペアレントメンター制度導入など、子どもと子育て家庭への深い関心に絞られている。',
      promise:'質問連動率100%は全議員中最高水準。公約5件に対して質問がほぼそのテーマに沿っており、少ない質問が全て公約に沿っており追い続けるスタイルが一貫している。陳情への賛否は反対が多いが、不登校支援・給食無償化・少人数学級など子ども関連では賛成票を投じる場面もある。',
@@ -4020,6 +4053,7 @@ const members = [
       {area:'産業・経済',title:'産業用地の創出',detail:'',status:'未着手',matched:false},
       {area:'教育',title:'心とからだの健康つくりと循環型社会の推進',detail:'',status:'未着手',matched:false}],
    promiseSummary:{total:11,notTouched:9,relatedQ:7,totalQ:53,matchRate:13.2075},grade:'D',totalScore:158.6667,totalRank:23,qScore:85,qGrade:'D',qRank:27,cScore:73.6667,cGrade:'C',cRank:18,
+    avgTime:43.0, useRate:71.67,
    aiComment:{
      activity:'一般質問19件・総合23位（158.67点）でD評価。連合兵庫とのつながりを持ち、質問テーマはICTを活用した公共施設予約・オンライン申請・かこがわウェルビーポイント・自転車レーン・ペットとの避難・町内会のデジタル化・スターリンク導入など、行政サービスのデジタル化と生活インフラの改善に一貫した関心を示している。',
      promise:'公約11件を掲げており、「ICTを活用した行政サービス」「公共交通網の充実」など方向性は質問テーマと重なっているが、公約の文言と質問タイトルの直接的な紐づけは少なく、質問連動率は13%（代表質問含む合計）にとどまる。「公共交通網の充実」を公約に掲げながら、高齢者向けバス・タクシー優待を求める市民の陳情に賛成ではない点は、公約を信じた市民には疑問が残る場面かもしれない。',
@@ -4129,6 +4163,7 @@ const members = [
       {area:'まちづくり',title:'「みんなが主役」の魅力あるまちづくり',detail:'市民と行政のパートナーシップを構築',status:'未着手',matched:true},
       {area:'子育て',title:'未来を切り拓くこどもたちが健やかに成長することができる環境づくり',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'笑顔あふれるまちづくり',detail:'',status:'未着手',matched:false}],promiseSummary:{total:5,notTouched:2,relatedQ:10,totalQ:59,matchRate:16.9492},grade:'B+',totalScore:292.5,totalRank:6,qScore:165.75,qGrade:'C+',qRank:10,cScore:126.75,cGrade:'B',cRank:3,
+    avgTime:39.0, useRate:65.0,
    aiComment:{
      activity:'一般質問24件・総合5位（292.5点）でB+評価。委員会スコアBも全議員上位。質問テーマは防災・公共交通・インフラ整備・自転車盗対策・聴覚障がい者向け消防車・受動喫煙防止など、生活の安全と利便性を地道に積み上げるスタイルが続いている。',
      promise:'公約5件（自然災害対策・安全・みんなが主役のまちづくり・こどもの成長・笑顔のまち）と質問連動率14%（代表質問含む合計）、公約を信じた市民には疑問が残る部分かもしれない。一方、委員会・質問ともに高い水準を3期にわたって維持している実績は、活動量として明確に伝わってくる。',
@@ -4250,6 +4285,7 @@ const members = [
       {area:'財政',title:'事務事業評価の徹底した活用',detail:'',status:'未着手',matched:true},
       {area:'財政',title:'プロポーサル・総合計画などのあり方の検討',detail:'',status:'未着手',matched:true},
       {area:'財政',title:'デジタル行政の推進による市民満足度の向上',detail:'',status:'未着手',matched:false}],promiseSummary:{total:7,notTouched:2,relatedQ:20,totalQ:57,matchRate:35.0877},grade:'S',totalScore:397.0833,totalRank:2,qScore:268.3333,qGrade:'A',qRank:1,cScore:128.75,cGrade:'B',cRank:2,
+    avgTime:57.33, useRate:95.56,
    aiComment:{
      activity:'一般質問スコア全議員1位（268.33点）、総合2位（397.08点）でS評価。現市長の公設秘書という職歴を持ち、行政内部を熟知した切り込み方が際立つ。質問テーマは財政・プロポーザル方式・事務事業評価・ネーミングライツ・ウォーカブルなまちづくりなど、行政運営の仕組みそのものに踏み込むテーマが中心だ。',
      promise:'「子ども・高齢者が安心して出かけられるまちづくり」「ふるさと納税や事務事業評価の徹底」など公約を掲げ、質問連動率は35%（代表質問含む合計）で、公約テーマを議会質問に比較的反映させている。一方、体育館空調設置や高齢者向けバス・タクシー優待を求める市民の陳情に賛成ではない票を投じており、子ども・高齢者に関わる公約との距離は公約を信じた市民には疑問が残るかもしれない。',
@@ -4364,6 +4400,7 @@ const members = [
       {area:'インフラ',title:'通学路の安全対策確保に向けた危険箇所の整備を推進',detail:'',status:'未着手',matched:true},
       {area:'福祉',title:'高齢者の見守りや安全対策体制の強化',detail:'',status:'未着手',matched:true},
       {area:'防災',title:'頻発する豪雨災害に対して地域の災害対策を推進',detail:'',status:'未着手',matched:false}],promiseSummary:{total:8,notTouched:5,relatedQ:7,totalQ:13,matchRate:53.8462},grade:'E',totalScore:92,totalRank:30,qScore:34.75,qGrade:'E',qRank:30,cScore:57.25,cGrade:'D',cRank:23,
+    avgTime:25.0, useRate:41.67,
    aiComment:{
      activity:'一般質問8件・総合30位（92点）でE評価。4期目のベテランながら活動量は物足りない水準。質問テーマは若者支援・出会いの場づくり・財政運営・介護保険の総合事業・メタバースを活用した不登校支援など、時代の変化に対応しようとする視点が見える。',
      promise:'公約8件を掲げ、質問連動率は54%と高水準。「誰一人取り残さない共生社会」という公約と、不登校支援や福祉関連陳情への反対票の間には距離があり、公約を信じた市民には疑問が残るかもしれない。',
@@ -4445,6 +4482,7 @@ const members = [
       {area:'子育て',title:'安心して子育てできるまちづくり',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'市北西部の活性化をめざす',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'水と緑のネットワークの形成・潤いのある加古川をめざす',detail:'',status:'未着手',matched:false}],promiseSummary:{total:5,notTouched:4,relatedQ:2,totalQ:29,matchRate:6.8966},grade:'D',totalScore:158,totalRank:24,qScore:86.5,qGrade:'D',qRank:26,cScore:71.5,cGrade:'C',cRank:19,
+    avgTime:6.0, useRate:10.0,
    aiComment:{
      activity:'一般質問8件・総合24位（158点）でD評価。4期目のベテランながら活動量は少なめ。ヤマト運輸出身という職歴を持ち、質問テーマは若者のライフデザイン支援・出会いの場づくり・介護保険の総合事業・財政基金の運用・メタバースを活用した不登校支援や若者の居場所づくりなど、代表質問を中心に時代の変化に対応したテーマを取り上げている。',
      promise:'「誰一人取り残さない共生社会」「安心して子育てできるまちづくり」「市北西部の活性化」など公約5件を掲げるが、代表質問27件を含む合計29件に対して質問連動率は7%と低い。4期目として質問量の少なさとあわせて判断する必要がある。子育て・福祉関連の市民請願への陳情の賛否は、公約との方向性と重ならない場面があり、公約を信じた市民には疑問が残るかもしれない。',
@@ -4534,6 +4572,7 @@ const members = [
       {area:'子育て',title:'子育て支援の充実を図ります',detail:'',status:'未着手',matched:false},
       {area:'環境',title:'地球温暖化対策など環境保護について取り組みます',detail:'',status:'未着手',matched:true},
       {area:'医療',title:'災害救急体制の確立と医療救急体制の充実を図ります',detail:'',status:'未着手',matched:true}],promiseSummary:{total:7,notTouched:2,relatedQ:14,totalQ:60,matchRate:23.3333},grade:'D',totalScore:153,totalRank:25,qScore:113,qGrade:'D+',qRank:21,cScore:40,cGrade:'D',cRank:28,
+    avgTime:5.0, useRate:8.33,
    aiComment:{
      activity:'一般質問28件・総合26位（153点）でD評価。6期22年のベテランとして質問数は多いが総合スコアは低い。質問テーマはSDGs・棋士のまち・ウェルネス都市・健康課題・オストメイト支援・防災など、まちのブランドイメージと市民の健康・安全を幅広く取り上げている。',
      promise:'「SDGs・誰一人取り残さない」「高齢者の地域包括ケア」「青少年育成」など公約7件を掲げる。代表質問57件を含む合計60件に対して質問連動率は23%。代表質問での公約関連発言が多く、一般質問より代表質問を主戦場にしているスタイルが見える。陳情への反対が多い傾向はある。',
@@ -4665,6 +4704,7 @@ const members = [
       {area:'産業・経済',title:'新しいビジネスチャンスの発掘',detail:'',status:'未着手',matched:false},
       {area:'インフラ',title:'加古川駅南西部再整備の推進',detail:'',status:'未着手',matched:false},
       {area:'教育',title:'いじめ・ヤングケアラーの相談',detail:'',status:'未着手',matched:false}],promiseSummary:{total:9,notTouched:7,relatedQ:10,totalQ:27,matchRate:37.037},grade:'E+',totalScore:109.25,totalRank:28,qScore:56.75,qGrade:'E+',qRank:29,cScore:52.5,cGrade:'D',cRank:26,
+    avgTime:33.5, useRate:55.83,
    aiComment:{
      activity:'一般質問4件・総合28位（109.25点）でE+評価。3期のベテランとして活動量の少なさはデータとして事実を伝えるしかない。質問テーマは教科書採択・地域経済振興・歴史教育・カスタマーハラスメントで、他の議員にはない独自の価値観が貫かれている。',
      promise:'「はきものを揃える運動」「郷土愛の醸成」「人工妊娠中絶抑制施策」と31議員の中で最も個性的な公約が並ぶ。質問連動率は37%と意外と高く、少ない質問の中でも自身の主張を議会に持ち込んでいる。',
@@ -4757,6 +4797,7 @@ const members = [
       {area:'福祉',title:'妊婦応援タクシーの拡充',detail:'',status:'未着手',matched:false},
       {area:'子育て',title:'保育士確保対策の拡充',detail:'',status:'未着手',matched:false},
       {area:'医療',title:'在宅医療の充実',detail:'',status:'未着手',matched:false}],promiseSummary:{total:16,notTouched:10,relatedQ:23,totalQ:36,matchRate:63.8889},grade:'B-',totalScore:247.3333333,totalRank:10,qScore:151.6666667,qGrade:'C',qRank:12,cScore:95.6667,cGrade:'B',cRank:9,
+    avgTime:50.33, useRate:83.89,
    aiComment:{
      activity:'一般質問12件・総合11位（239.17点）でC+評価。防災士・バレーボール指導者という経歴を持ち、質問テーマは防災一色といっても過言ではない。福祉避難所・避難所運営・個別避難計画・防災会議・感震ブレーカー・マンホールトイレの管理まで、防災を多角的に深掘りし続けている。',
      promise:'公約16件は全議員最多で、質問連動率64%も全議員中最高水準に迫る高さ。「高齢者の移動手段確保」を公約に掲げながら高齢者バス・タクシー優待を求める市民の陳情に賛成ではない点は、公約を信じた市民には疑問が残るかもしれない。',
@@ -4852,6 +4893,7 @@ const members = [
       {area:'子育て',title:'子育て支援・教育環境の充実により、子育て世代にやさしいまちに。',detail:'協同的探求学習の推進と教育環境の整備を推進します。',status:'未着手',matched:false},
       {area:'産業・経済',title:'市北部地域の活性化と農業振興に取り組みます。',detail:'',status:'未着手',matched:true},
       {area:'インフラ',title:'東播磨南北道路の全線開通を着実に進めます。',detail:'',status:'未着手',matched:false}],promiseSummary:{total:5,notTouched:3,relatedQ:26,totalQ:42,matchRate:61.9048},grade:'A-',totalScore:306.6666667,totalRank:4,qScore:225.6666667,qGrade:'B+',qRank:3,cScore:81,cGrade:'C',cRank:13,
+    avgTime:50.67, useRate:84.44,
    aiComment:{
      activity:'一般質問14件・総合9位（248.25点）でB-評価。質問テーマは農村地域の維持管理・ため池・空き家対策・下水道の災害対応・河川の管理・鳥獣被害対策・防火水槽の老朽化対策など、加古川北部の農村・インフラに特化した視点が際立っている。',
      promise:'「東播磨南北道路の全線開通」「市北部地域の活性化と農業振興」などを公約に掲げ、質問連動率は62%（代表質問含む合計）と高く、公約テーマを議会質問に一貫して反映させている。子育て・高齢者公約と関連陳情への反対については距離がある場面もあり、公約を信じた市民には疑問が残るかもしれない。',
@@ -4954,6 +4996,7 @@ const members = [
       {area:'その他',title:'誰ひとり取り残さない、それぞれに光を当てる政策',detail:'',status:'未着手',matched:false},
       {area:'財政',title:'次世代にツケを残さない行政へ',detail:'',status:'未着手',matched:false},
       {area:'その他',title:'文化の香りがするまちに',detail:'',status:'未着手',matched:false}],promiseSummary:{total:6,notTouched:4,relatedQ:6,totalQ:45,matchRate:13.3333},grade:'B+',totalScore:293.1667,totalRank:5,qScore:177.6667,qGrade:'C+',qRank:7,cScore:115.5,cGrade:'B',cRank:4,
+    avgTime:58.33, useRate:97.22,
    aiComment:{
      activity:'一般質問16件・総合4位（293.17点）でB+評価。4期目のベテランで委員会スコアBも高く、産業環境常任委員会の委員長も務めた。現市長の公設秘書という職歴を持ち、質問テーマは学校図書館の充実・学校司書の配置・平和教育と加古川飛行場・不登校と起立性調節障害・介護予防の総合事業・マンション管理など、行政の細部を丁寧に問いかけるスタイルが特徴的だ。',
      promise:'「文化の香りがするまちに」という公約を掲げながら、旧加古川図書館の保存を求める市民の陳情に賛成ではない票を投じている点は、公約を信じた市民には疑問が残るかもしれない。質問連動率は13%と低め。',
@@ -5059,6 +5102,7 @@ const members = [
       {area:'まちづくり',title:'田園まちづくりで北部の活性化を進めます',detail:'',status:'未着手',matched:true},
       {area:'まちづくり',title:'大きな遊具のある公園をつくります',detail:'',status:'未着手',matched:false},
       {area:'その他',title:'犬猫との共生のまちづくりで、殺処分ゼロを進めます',detail:'',status:'未着手',matched:false}],promiseSummary:{total:7,notTouched:6,relatedQ:1,totalQ:81,matchRate:1.2346},grade:'C+',totalScore:235.6667,totalRank:12,qScore:121,qGrade:'C-',qRank:19,cScore:114.6667,cGrade:'B',cRank:5,
+    avgTime:20.33, useRate:33.89,
    aiComment:{
      activity:'一般質問26件・総合12位（235.67点）でC+評価。4期目のベテランで委員会スコアBは高い。質問テーマはゼロカーボン・スマートシティ・まちづくり・駅周辺整備・市民意識調査など幅広いが、代表質問が多く会派を代表する立場での発信が目立つ。',
      promise:'「犬猫との共生・殺処分ゼロ」「医療・介護・保育の底上げ」「大きな遊具のある公園づくり」など個性的な公約を掲げるが、代表質問65件を含む合計81件に対して質問連動率は1%と極めて低く、公約テーマが質問にほぼ現れていない。陳情への反対も多く、公約と議会活動の間には距離がある。',
@@ -5181,6 +5225,7 @@ const members = [
       {area:'その他',title:'母親としての経験',detail:'',status:'未着手',matched:true},
       {area:'福祉',title:'福祉に携わった強み',detail:'',status:'未着手',matched:true},
       {area:'その他',title:'３期12年の実績',detail:'',status:'未着手',matched:false}],promiseSummary:{total:4,notTouched:1,relatedQ:33,totalQ:64,matchRate:51.5625},grade:'S',totalScore:495.4167,totalRank:1,qScore:242.75,qGrade:'A-',qRank:2,cScore:252.6667,cGrade:'S',cRank:1,
+    avgTime:60.0, useRate:100.0,
    aiComment:{
      activity:'一般質問19件・総合1位（495.42点）と全議員中トップ評価。委員会スコアSは突出して高く、31議員中ダントツの1位。加古川市社会福祉協議会での職歴を持ち、質問テーマは福祉の切れ目のない支援・介護人材不足・身寄りのない人への支援・男女共同参画・防災と福祉の連携・スマートシティなど、福祉を軸に幅広く議会に問いかけ続けている。',
      promise:'公約は「女性ならではの気づき」「母親としての経験」「福祉に携わった強み」「3期12年の実績」と、スタンスや姿勢を示すもので具体的な政策目標は少ない。質問連動率は52%。陳情への賛否は反対が多い傾向がある。',
@@ -6032,6 +6077,7 @@ function updateDetail() {
   document.getElementById('infoCScore').textContent = m.cScore > 0 ? m.cScore.toFixed(1) : '—';
   document.getElementById('infoCRank').textContent = m.cRank > 0 ? formatRank(m.cRank) : '（収集中）';
 
+  buildTimeSection(m);
   buildPromiseSection(m);
   buildMemberInfoPanel(m);
   buildSeimukatsudo();
@@ -6042,6 +6088,30 @@ function splitGrade(grade) {
 }
 function formatRank(rank) {
   return `（\u2002${rank}\u2002/\u2002${TOTAL_MEMBERS}\u2002）`;
+}
+
+// ===== 質問時間枠セクション =====
+function buildTimeSection(m) {
+  const sec = document.getElementById('timeSection');
+  if (!sec) return;
+  if (m.avgTime == null || m.useRate == null) {
+    sec.innerHTML = '';
+    return;
+  }
+  const avgTimeStr = m.avgTime % 1 === 0 ? m.avgTime + '.0' : String(m.avgTime);
+  const useRateStr = m.useRate.toFixed(2);
+  sec.innerHTML = `
+    <div class="time-section-title">質問時間枠</div>
+    <div class="time-summary-bar">
+      <div class="time-summary-cell">
+        <span class="time-summary-val">${avgTimeStr}<span style="font-size:0.65rem;font-weight:400;margin-left:2px;">分</span></span>
+        年間平均質問時間
+      </div>
+      <div class="time-summary-cell">
+        <span class="time-summary-val">${useRateStr}<span style="font-size:0.65rem;font-weight:400;margin-left:2px;">%</span></span>
+        持ち時間活用率
+      </div>
+    </div>`;
 }
 
 // ===== 公約セクション =====
