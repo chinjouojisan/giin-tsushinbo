@@ -668,8 +668,7 @@
     transition: background 0.15s, border-color 0.15s;
   }
   .hero-btn:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.7); }
-  .hero-btn-interview { opacity: 0.55; }
-  .hero-btn-interview:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); }
+  .hero-btn-interview { opacity: 1; }
   .hero-sub-btns {
     display: flex; gap: 10px; justify-content: center; margin-top: 10px;
   }
@@ -1119,7 +1118,7 @@
     <span class="entry-panel-label">インタビュー</span>
     <button class="entry-panel-close" onclick="closePanel('interview')">▲ 閉じる</button>
   </div>
-  <div style="padding: 8px 16px 4px; font-size:0.65rem; color:var(--text-muted); letter-spacing:0.1em;">実際に会いに行った議員インタビューを掲載します（準備中）</div>
+  <div style="padding: 8px 16px 4px; font-size:0.65rem; color:var(--text-muted); letter-spacing:0.1em;">実際に会いに行った議員インタビューを掲載しています</div>
   <div class="member-grid-wrap">
     <div class="member-grid" id="memberGridInterview"></div>
   </div>
@@ -2646,7 +2645,7 @@ const members = [
    }},
   {code:'M007', region:'志方町',name:'東田　寿啓',yomi:'ひがしだ　としひろ',faction:'創生加古川',
    status:'現職',party:'',terms:1,termStart:2022,gender:'男',age:66,job:'加古川人権アドバイザー',
-   photo:'https://chinjouojisan.github.io/giin_photo/m007.jpg',photoStatus:'ok',siteUrl:'https://www.higashida-toshihiro.info/',siteName:'加古川市議会議員「東田としひろ」公式サイト',
+   photo:'https://chinjouojisan.github.io/giin_photo/m007.jpg',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/n764752f31d9b',siteUrl:'https://www.higashida-toshihiro.info/',siteName:'加古川市議会議員「東田としひろ」公式サイト',
    promises:[{area:'その他',title:'みんなの「いのち輝く」ために全力で取り組みます',detail:'',status:'未着手',matched:false},
       {area:'産業・経済',title:'商工業と農業の活性化',detail:'まちの元気な源',status:'未着手',matched:false},
       {area:'子育て',title:'子育てと学びのサポート',detail:'',status:'未着手',matched:false},
@@ -2751,7 +2750,7 @@ const members = [
    }},
   {code:'M008', region:'加古川町',name:'大野　恭平',yomi:'おおの　きょうへい',faction:'創生加古川',
    status:'現職',party:'',terms:2,termStart:2018,gender:'男',age:50,job:'自営業',
-   photo:'https://chinjouojisan.github.io/giin_photo/m008.JPG',photoStatus:'ok',siteUrl:'https://www.facebook.com/oonokyouheikouenkai/?locale=ja_JP',siteName:'大野きょうへい後援会',
+   photo:'https://chinjouojisan.github.io/giin_photo/m008.JPG',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/n79af017afff7',siteUrl:'https://www.facebook.com/oonokyouheikouenkai/?locale=ja_JP',siteName:'大野きょうへい後援会',
    promises:[{area:'まちづくり',title:'地域の活性化推進',detail:'',status:'未着手',matched:true},
       {area:'子育て',title:'子育て支援を推進',detail:'',status:'未着手',matched:false},
       {area:'まちづくり',title:'安心・安全対策のまちづくりを推進',detail:'',status:'未着手',matched:false}],
@@ -3331,7 +3330,7 @@ const members = [
    }},
   {code:'M014', region:'加古川町',name:'藤原　みつえ',yomi:'ふじわら　みつえ',faction:'かこがわ未来の会',
    status:'現職',party:'',terms:1,termStart:2022,gender:'女',age:63,job:'シオンプランニング株式会社取締役',
-   photo:'https://chinjouojisan.github.io/giin_photo/m014.JPG',photoStatus:'ok',siteUrl:'https://www.instagram.com/nukumorihoukan/',siteName:'藤原 みつえ Instagram',
+   photo:'https://chinjouojisan.github.io/giin_photo/m014.JPG',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/ncfa40d0f3eaa',siteUrl:'https://www.instagram.com/nukumorihoukan/',siteName:'藤原 みつえ Instagram',
    factionHistory:[
      {faction:'創生加古川',       fromYear:2022, toYear:2023},
      {faction:'無会派',           fromYear:2024, toYear:2024},
@@ -3441,7 +3440,7 @@ const members = [
    }},
   {code:'M015', region:'野口町',name:'柘植　厚人',yomi:'つげ　あつひと',faction:'かこがわ未来の会',
    status:'現職',party:'',terms:2,termStart:2018,gender:'男',age:54,job:'株式会社プロクリ取締役',
-   photo:'https://chinjouojisan.github.io/giin_photo/m015.jpg',photoStatus:'ok',siteUrl:'https://www.instagram.com/atsuhitotsuge?igsh=OHQ3MHA0d2tjY240',siteName:'柘植あつひと Instagram',
+   photo:'https://chinjouojisan.github.io/giin_photo/m015.jpg',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/n26516d9aa92b',siteUrl:'https://www.instagram.com/atsuhitotsuge?igsh=OHQ3MHA0d2tjY240',siteName:'柘植あつひと Instagram',
    factionHistory:[
      {faction:'無会派',           fromYear:2022, toYear:2024},
      {faction:'かこがわ未来の会', fromYear:2025, toYear:2099},
@@ -3831,7 +3830,7 @@ const members = [
    }},
   {code:'M018', region:'加古川町',name:'中山　俊明',yomi:'なかやま　としあき',faction:'加古川維新の会',
    status:'現職',party:'日本維新の会',terms:1,termStart:2022,gender:'男',age:41,job:'無職',
-   photo:'https://chinjouojisan.github.io/giin_photo/m018.JPEG',photoStatus:'ok',siteUrl:'https://nakayama-toshiaki.jp/',siteName:'中山としあき',
+   photo:'https://chinjouojisan.github.io/giin_photo/m018.JPEG',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/n1a785a61230d',siteUrl:'https://nakayama-toshiaki.jp/',siteName:'中山としあき',
    promises:[{area:'産業・経済',title:'子育て世代が働き学べる場の確保',detail:'',status:'未着手',matched:false},
       {area:'福祉',title:'福祉サービスの拡充',detail:'従事者確保のため、積極的な財政支援',status:'未着手',matched:false},
       {area:'福祉',title:'高齢者福祉の充実',detail:'移動手段の確保、免許返納者へのタクシー利用促進',status:'未着手',matched:false},
@@ -4992,7 +4991,7 @@ const members = [
    }},
   {code:'M029', region:'加古川町',name:'中村　亮太',yomi:'なかむら　りょうた',faction:'創生加古川',
    status:'現職',party:'',terms:4,termStart:2010,gender:'男',age:45,job:'現市長 公設秘書',
-   photo:'https://chinjouojisan.github.io/giin_photo/m029.JPG',photoStatus:'ok',siteUrl:'https://ryotanakamura.com/',siteName:'中村亮太公式サイト',
+   photo:'https://chinjouojisan.github.io/giin_photo/m029.JPG',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/n28fb9558ea82',siteUrl:'https://ryotanakamura.com/',siteName:'中村亮太公式サイト',
    promises:[{area:'教育',title:'教育環境の充実で、加古川から日本を支える人材を育成',detail:'',status:'未着手',matched:true},
       {area:'まちづくり',title:'商工業と住環境の相互発展',detail:'',status:'未着手',matched:false},
       {area:'インフラ',title:'インフラと都市開発',detail:'',status:'未着手',matched:true},
@@ -5223,7 +5222,7 @@ const members = [
    }},
   {code:'M031', region:'野口町',name:'木谷　万里',yomi:'きたに　まり',faction:'創生加古川',
    status:'現職',party:'',terms:4,termStart:2010,gender:'女',age:66,job:'加古川市社会福祉協議会',
-   photo:'https://chinjouojisan.github.io/giin_photo/m031.png',photoStatus:'pending',reaction:'本人公式HPより取材をお願いしましたが、お返事が届いていません。ご覧になっていれば、ぜひご連絡を。',siteUrl:'https://kitanimari.com',siteName:'木谷まり公式サイト',
+   photo:'https://chinjouojisan.github.io/giin_photo/m031.JPG',photoStatus:'ok',reaction:'本人公式HPより取材をお願いしましたが、お返事が届いていません。ご覧になっていれば、ぜひご連絡を。',siteUrl:'https://kitanimari.com',siteName:'木谷まり公式サイト',
    promises:[{area:'その他',title:'女性ならではの気づき',detail:'',status:'未着手',matched:true},
       {area:'その他',title:'母親としての経験',detail:'',status:'未着手',matched:true},
       {area:'福祉',title:'福祉に携わった強み',detail:'',status:'未着手',matched:true},
@@ -5838,7 +5837,7 @@ function heroGoInterview() {
   openPanel('interview');
   const grid = document.getElementById('memberGridInterview');
   if (grid && grid.children.length === 0) {
-    ['M008', 'M014', 'M015', 'M018'].forEach(code => {
+    ['M007', 'M008', 'M014', 'M015', 'M018', 'M029'].forEach(code => {
       const idx = members.findIndex(m => m.code === code);
       if (idx < 0) return;
       const btn = document.createElement('button');
