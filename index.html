@@ -5222,7 +5222,7 @@ const members = [
    }},
   {code:'M031', region:'野口町',name:'木谷　万里',yomi:'きたに　まり',faction:'創生加古川',
    status:'現職',party:'',terms:4,termStart:2010,gender:'女',age:66,job:'加古川市社会福祉協議会',
-   photo:'https://chinjouojisan.github.io/giin_photo/m031.JPG',photoStatus:'ok',reaction:'本人公式HPより取材をお願いしましたが、お返事が届いていません。ご覧になっていれば、ぜひご連絡を。',siteUrl:'https://kitanimari.com',siteName:'木谷まり公式サイト',
+   photo:'https://chinjouojisan.github.io/giin_photo/m031.JPG',photoStatus:'ok',interviewUrl:'https://note.com/chinjou_ojisan/n/ned794378dc13',reaction:'本人公式HPより取材をお願いしましたが、お返事が届いていません。ご覧になっていれば、ぜひご連絡を。',siteUrl:'https://kitanimari.com',siteName:'木谷まり公式サイト',
    promises:[{area:'その他',title:'女性ならではの気づき',detail:'',status:'未着手',matched:true},
       {area:'その他',title:'母親としての経験',detail:'',status:'未着手',matched:true},
       {area:'福祉',title:'福祉に携わった強み',detail:'',status:'未着手',matched:true},
@@ -5837,7 +5837,7 @@ function heroGoInterview() {
   openPanel('interview');
   const grid = document.getElementById('memberGridInterview');
   if (grid && grid.children.length === 0) {
-    ['M007', 'M008', 'M014', 'M015', 'M018', 'M029'].forEach(code => {
+    ['M007', 'M008', 'M014', 'M015', 'M018', 'M029', 'M031'].forEach(code => {
       const idx = members.findIndex(m => m.code === code);
       if (idx < 0) return;
       const btn = document.createElement('button');
