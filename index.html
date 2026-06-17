@@ -7512,6 +7512,14 @@ function toggleFdDept(did) {
   btn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+/* ===== URLパラメータで議員を直接展開 ===== */
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get('m');
+  if (!code) return;
+  var idx = members.findIndex(function(m) { return m.code === code; });
+  if (idx < 0) return;
+  selectMember(idx, true, false);
 })();
 
 </script>
